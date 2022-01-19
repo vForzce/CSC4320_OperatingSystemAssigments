@@ -1,0 +1,56 @@
+The sum total of the process and its parent process>>>11401
+The difference of the process and its parent process>>>6561
+The product of the process and its parent process>>>21734020
+The quotient total of the process and its parent process>>>3
+The sum total of the process and its parent process>>>11401
+The difference of the process and its parent process>>>6561
+The product of the process and its parent process>>>21734020
+The quotient total of the process and its parent process>>>3
+The sum total of the process and its parent process>>>11401
+The difference of the process and its parent process>>>6561
+The product of the process and its parent process>>>21734020
+The quotient total of the process and its parent process>>>3
+	<<<<<<<<<<<<<<<New logs>>>>>>>>>>>>>>>>>
+The sum total of the process and its parent process>>>11404
+The difference of the process and its parent process>>>6564
+The product of the process and its parent process>>>21741280
+The quotient total of the process and its parent process>>>3
+	<<<<<<<<<<<<<<<New logs>>>>>>>>>>>>>>>>>
+The sum total of the process and its parent process>>>11406
+The difference of the process and its parent process>>>6566
+The product of the process and its parent process>>>21746120
+The quotient total of the process and its parent process>>>3
+The sum total of the process and its parent process>>>11406
+The difference of the process and its parent process>>>6566
+The product of the process and its parent process>>>21746120
+The quotient total of the process and its parent process>>>3
+The sum total of the process and its parent process>>>11406
+The difference of the process and its parent process>>>6566
+The product of the process and its parent process>>>21746120
+The quotient total of the process and its parent process>>>3
+The sum total of the process and its parent process>>>11406
+The difference of the process and its parent process>>>6566
+The product of the process and its parent process>>>21746120
+The quotient total of the process and its parent process>>>3
+The sum total of the process and its parent process>>>11406
+The difference of the process and its parent process>>>6566
+The product of the process and its parent process>>>21746120
+The quotient total of the process and its parent process>>>3
+The sum total of the process and its parent process>>>11406
+The difference of the process and its parent process>>>6566
+The product of the process and its parent process>>>21746120
+The quotient total of the process and its parent process>>>3
+	<<<<<<<<<<<<<<<New logs>>>>>>>>>>>>>>>>>
+The sum total of the process and its parent process>>>11635
+The difference of the process and its parent process>>>6795
+The product of the process and its parent process>>>22300300
+The quotient total of the process and its parent process>>>3
+The sum total of the process and its parent process>>>11635
+The difference of the process and its parent process>>>6795
+The product of the process and its parent process>>>22300300
+The quotient total of the process and its parent process>>>3
+The sum total of the process and its parent process>>>11635
+The difference of the process and its parent process>>>6795
+The product of the process and its parent process>>>22300300
+The quotient total of the process and its parent process>>>3
+	<<<<<<<<<<<<<<<New logs>>>>>>>>>>>>>>>>>
