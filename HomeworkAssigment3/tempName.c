@@ -92,24 +92,67 @@ int generateNumberCycles(){
     return cycles;
 }
 
-// int generateMemorySize(){
-//     int upperbound;
-//     int lowerbound;
-//     int average;
+int generateMemorySize(){
+    int upperbound = HIGH_KB;
+    int lowerbound = LOW_CYCLES;
+    int average = MEAN_KB;
 
-//     switch (MEM_MODE)
-//     {
-//     case 0:
-//         upperbound = HIGH_KB;
-//         lowerbound = LOW_KB;
-//         average = MEAN_KB;
-//         break;
-//     case 1:
-//         upperbound = 
-//     default:
-//         break;
-//     }
-// }
+    if((rand()% (upperbound - lowerbound)) > (average - lowerbound)) {
+        return (rand()% (average - lowerbound)) + average;
+    } else {
+        return (rand()%(upperbound - average)) + average;
+    }
+}
+
+int DataTable_GeneratingProcess(struct dataTable *pointer) {
+    if(!pointer) {
+        return -1;
+    }
+    struct Node *newNode =  (struct Node*)calloc(1, sizeof(struct Node));
+    if(!newNode) {
+        return -1;
+    }
+    if(pointer -> head == NULL && pointer -> tail ==NULL) {
+        //Creating a Process
+        struct PCM *newPCM = pcmObject(1, generateNumberCycles(), generateMemorySize());
+        
+        if(!newPCM){
+            return -1;
+        
+        }
+        newNode->data = NULL;
+        newNode->next = NULL;
+
+        pointer->head =newNode;
+        pointer->tail = newNode;
+        pointer->totalOfCyles = pcm_getNumCycles(newPCM);
+        pointer->totalOfMemory = pcm_getMemSize(newPCM);
+
+        return pcm_getPID(newPCM);
+    } else if (pointer->tail) {
+        struct PCM *newPCM = pcmObject(pcm_getPID(pointer->tail->data), generateNumberCycles(), generateMemorySize());
+         
+         if(!newPCM){
+            return -1;
+        }
+
+        newNode->data = newPCM;
+        newNode->next = NULL;
+
+        pointer->tail->next = newNode;
+        pointer->tail = newNode;
+        pointer->totalOfCyles += pcm_getNumCycles(newPCM);
+        pointer->totalOfMemory += pcm_getMemSize(newPCM);
+
+        return pcm_getPID(newPCM); 
+    } else {
+        return -1;
+    }
+
+    return -1;
+}
+
+
 
 
 int main () {
