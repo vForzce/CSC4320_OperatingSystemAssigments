@@ -50,12 +50,7 @@ int pcm_getMemSize(struct PCM *p) {
     }
     return p -> memorySize;
 }
-//Delete the PCM object
-void delete_PCM(struct PCM *p) {
-    if(p) {
-        free(p);
-    }
-}
+
 //Points the values in a PCM object
 void print_PCM(struct PCM *p) {
     printf("PID=%d, Number of CPU Cycles=%d, Memory Size(KB)=%d\n", p->processID, p->numberCycles, p->memorySize);
@@ -66,8 +61,8 @@ void pcm_printCSV(struct PCM *p){
     printf("\t%d \t\t%d \t\t %d\n", p->processID, p->numberCycles, p->memorySize);
 }
 
-//Using  a linklist data structure to store the data
 
+//Link List
 struct Node {
     struct PCM *data;
     struct Node *next;
@@ -106,17 +101,16 @@ int DataTable_GeneratingProcess(struct dataTable *pointer) {
     if(!pointer) {
         return -1;
     }
-    int i = 1;
     //Creates a new node
-    struct Node *newNode =  (struct Node*)calloc(i, sizeof(struct Node));
+    struct Node *newNode =  (struct Node*)calloc(1, sizeof(struct Node));
     if(!newNode) {
         return -1;
     }
+
     //The datatable is empty
     if(pointer -> head == NULL && pointer -> tail ==NULL) {
         //Creates a Process
-        
-        struct PCM *newPCM = pcmObject(i, generateNumberCycles(), generateMemorySize());
+        struct PCM *newPCM = pcmObject(1, generateNumberCycles(), generateMemorySize());
         //Set values within the node
         newNode->data = newPCM;
         newNode->next = NULL;
@@ -129,7 +123,7 @@ int DataTable_GeneratingProcess(struct dataTable *pointer) {
         return pcm_getPID(newPCM);
     } else if (pointer->tail) {
         //Creates a Process
-        struct PCM *newPCM = pcmObject(pcm_getPID(pointer->tail->data), generateNumberCycles(), generateMemorySize());
+        struct PCM *newPCM = pcmObject(pcm_getPID(pointer->tail->data)+1, generateNumberCycles(), generateMemorySize());
 
         //Set values within the node
         newNode->data = newPCM;
@@ -166,57 +160,7 @@ void delete_dataTable(struct dataTable *pointer) {
     }
 }
 
-int dataTable_removeProcessByPID(struct dataTable *pointer, int processID) {
-    if(!pointer) {
-        return 0;
-    }
-    if(pcm_getPID(pointer->head->data) == processID) {
-        struct PCM *pcmDeletePtr = pointer->head->data;
-        struct Node *nodeDeletePtr = pointer->head;
-        pointer->head = nodeDeletePtr->next;
 
-        if(pointer->head == NULL){
-            pointer->tail = NULL;
-        }
-        pointer->numberOfProcess--;
-        pointer->totalOfCycles = pcm_getNumCycles(pcmDeletePtr);
-        pointer->totalOfMemory = pcm_getMemSize(pcmDeletePtr);
-
-        delete_PCM(pcmDeletePtr);
-        free(nodeDeletePtr);
-        pcmDeletePtr = NULL;
-        nodeDeletePtr = NULL;
-        //Successful
-        return 1;
-    } else {
-        struct Node *ptr;
-        struct Node *ptrNext;
-        for(ptr = pointer->head; ptr!=NULL; ptr = ptr->next) {
-            //Checks the next node
-            ptrNext = ptr->next;
-            if(pcm_getPID(ptrNext->data) == processID) {
-                struct PCM *pcmDeletePtr = ptrNext->data;
-                ptr->next = ptrNext->next;
-
-                if(ptr->next == NULL){
-                    pointer->tail = ptr;
-                }
-                pointer->numberOfProcess--;
-                pointer->totalOfCycles = pcm_getNumCycles(pcmDeletePtr);
-                pointer->totalOfMemory = pcm_getMemSize(pcmDeletePtr);
-
-                delete_PCM(pcmDeletePtr);
-                pcmDeletePtr = NULL;
-                return 1;
-
-            } else if (pcm_getPID(ptr->data) > processID){
-                return 0;
-            }
-        }
-    }
-    return 0;
-
-}
 //Prints the data of the process
 void dataTable_pPrint(struct dataTable *pointer){
     if (!pointer) {
@@ -233,7 +177,7 @@ void dataTable_stats(struct dataTable *pointer) {
     if (!pointer) {
         return;
     }
-    printf("Number of Process = %d, Average Number of CPU Cycles = %d, average Memory Size = %d\n", pointer->numberOfProcess, pointer->totalOfCycles, pointer->totalOfMemory);
+    printf("Number of Process = %d, Average Number of CPU Cycles = %d, average Memory Size = %d\n", pointer->numberOfProcess, pointer->totalOfCycles/pointer->numberOfProcess, pointer->totalOfMemory/pointer->numberOfProcess);
 }
 
 void dataTable_print(struct dataTable *pointer){
@@ -242,10 +186,6 @@ void dataTable_print(struct dataTable *pointer){
     }
     dataTable_stats(pointer);
     dataTable_pPrint(pointer);
-}
-
-void printStatsCSVFormant (struct dataTable *pointer){
-    printf("%d, %d, %d\n", pointer->numberOfProcess, pointer->totalOfCycles/pointer->numberOfProcess, pointer->totalOfMemory/pointer->numberOfProcess);
 }
 
 void printPCSVFormat (struct dataTable *pointer) {
@@ -263,7 +203,6 @@ void printCSVFormat(struct dataTable *pointer){
     if (!pointer) {
         return;
     }
-    printStatsCSVFormant(pointer);
     printPCSVFormat(pointer);
 }
 
