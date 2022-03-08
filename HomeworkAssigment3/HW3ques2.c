@@ -12,7 +12,8 @@
 #define LOW_KB 1
 
 
-
+const char* path = "ProcessDataTable"; //Creating a File
+FILE *fp;
 
 //Structure to store a process info
 struct PCM {
@@ -58,7 +59,7 @@ void print_PCM(struct PCM *p) {
 
 
 void pcm_printCSV(struct PCM *p){
-    printf("\t%d \t\t%d \t\t %d\n", p->processID, p->numberCycles, p->memorySize);
+    fprintf(fp, "\t%d \t\t%d \t\t %d\n", p->processID, p->numberCycles, p->memorySize);
 }
 
 
@@ -210,9 +211,11 @@ void printCSVFormat(struct dataTable *pointer){
 
 int main () {
     int k;
+    fp = fopen(path, "r");
     printf("Enter the number of process k: ");
     scanf("%d", &k);
     struct dataTable *ptr = newDataTable(k);
+    fp = fopen(path, "w");
     dataTable_print(ptr);
     printCSVFormat(ptr);
     delete_dataTable(ptr);
