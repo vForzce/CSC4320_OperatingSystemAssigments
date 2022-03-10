@@ -12,7 +12,7 @@
 #define LOW_KB 1
 
 
-const char* path = "ProcessDataTable"; //Creating a File
+const char* path = "processes.csv"; //Creating a File
 FILE *fp;
 
 //Structure to store a process info
